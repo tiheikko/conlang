@@ -10,10 +10,18 @@
                 </div>
             </div>
 
-            <!-- Заголовок статьи -->
-            <div class="row mt-3">
-                <div class="col-md-12">
+            <!-- Заголовок статьи и кнопки -->
+            <div class="row mt-3 align-items-center">
+                <div class="col-md-8">
                     <h1 class="display-4">{{ $article->title }}</h1>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a href="" class="btn btn-primary">Изменить</a>
+                    <form action="" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">Удалить</button>
+                    </form>
                 </div>
             </div>
 
@@ -21,7 +29,7 @@
                 <!-- Обложка статьи -->
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        <img src="https://static.pingendo.com/cover-bubble-dark.svg" alt="Обложка статьи" class="img-fluid rounded">
+                        <img src="{{ asset($article->cover_path) }}" alt="Обложка статьи" class="img-fluid rounded">
                     </div>
                 </div>
             @endif

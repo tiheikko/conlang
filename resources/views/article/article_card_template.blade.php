@@ -1,11 +1,9 @@
 <div class="col-md-4 mb-3">
-    <a class="card text-center text-decoration-none">
-        <img class="card-img-top" src="https://static.pingendo.com/cover-bubble-light.svg"
-             alt="Card image cap">
+    <a class="card text-center text-decoration-none" href="{{ route('article.show', $article->id) }}">
+        <img class="card-img-top" src="{{ asset($article->cover_path) }}" alt="Card image cap">
         <div class="card-body">
             <p class="card-text">
-                A wonderful serenity has taken possession of my entire soul, like these
-                sweet mornings of spring which I enjoy with my whole heart.
+                {{ $article->title }}
             </p>
         </div>
     </a>

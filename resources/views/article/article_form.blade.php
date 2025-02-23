@@ -13,10 +13,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form class="">
+                    <form id="article_form" enctype="multipart/form-data">
                         <div class="form-group mb-3">
                             <label>Категория</label>
-                            <select class="form-select" id="category_select" aria-label="Default select example">
+                            <select class="form-select" name="article_category_id" id="category_select" aria-label="Default select example">
                                 <option selected>Выбрать категорию</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
@@ -28,12 +28,12 @@
 
                         <div class="form-group mb-3">
                             <label>Заголовок</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="text" class="form-control" name="title" placeholder="Заголовок">
                         </div>
 
                         <div class="form-group mb-3" id="cover_form" style="display: none">
                             <label>Обложка</label>
-                            <input type="file" class="form-control" placeholder="Password">
+                            <input type="file" name="file" class="form-control">
                         </div>
 
                         <div class="form-group mb-3">
@@ -86,7 +86,7 @@
                             <div id="text_editor"></div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mb-3">Создать</button>
+                        <button type="button" id="create_article_btn" class="btn btn-primary mb-3">Создать</button>
                     </form>
                 </div>
             </div>
@@ -96,6 +96,17 @@
         let category_select = document.getElementById('category_select');
         let cover_form = document.getElementById('cover_form');
 
+        let create_article_btn = document.getElementById('create_article_btn');
+
+        const quill = new Quill('#text_editor', {
+            modules: {
+                syntax: true,
+                toolbar: '#toolbar-container',
+            },
+            placeholder: 'Что-нибудь...',
+            theme: 'snow',
+        });
+
         category_select.addEventListener('change', function(event) {
             let text = event.target.options[event.target.selectedIndex].textContent.trim();
             if (text == 'Перевод') {
@@ -103,6 +114,28 @@
             } else {
                 cover_form.style.display = 'none';
             }
+        });
+
+        create_article_btn.addEventListener('click', () => {
+            let form_data = new FormData(document.getElementById('article_form'));
+            let content = quill.root.innerHTML;
+            form_data.append('content', content);
+
+            let url = window.location.href;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: form_data
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                window.location.href = data.href;
+            }).catch(err => {
+
+            });
         });
     </script>
 @endsection

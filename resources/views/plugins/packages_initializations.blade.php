@@ -19,15 +19,4 @@
             }
         });
     });
-
-    if (document.getElementById('#text_editor')) {
-        const quill = new Quill('#text_editor', {
-            modules: {
-                syntax: true,
-                toolbar: '#toolbar-container',
-            },
-            placeholder: 'Compose an epic...',
-            theme: 'snow',
-        });
-    }
 </script>
