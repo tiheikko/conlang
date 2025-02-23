@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css"
@@ -17,7 +18,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="">
@@ -56,6 +57,7 @@
 
     <div class="content">
         @yield('content')
+        @include('layouts.notification')
     </div>
 
     <footer class="py-3">
@@ -73,36 +75,6 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
-<script>
-    document.querySelectorAll('table').forEach(table => {
-        let table_init = new DataTable(table, {
-            language: {
-                processing: "Обработка...",
-                search: "Поиск:",
-                lengthMenu: "Показать _MENU_ записей",
-                info: "Записи с _START_ до _END_ из _TOTAL_ записей",
-                infoEmpty: "Записи отсутствуют",
-                infoFiltered: "(отфильтровано из _MAX_ записей)",
-                loadingRecords: "Загрузка записей...",
-                zeroRecords: "Совпадений не найдено",
-                emptyTable: "Данные отсутствуют",
-
-                aria: {
-                    sortAscending: ": активировать для сортировки столбца по возрастанию",
-                    sortDescending: ": активировать для сортировки столбца по убыванию"
-                }
-            }
-        });
-    });
-
-    const quill = new Quill('#text_editor', {
-        modules: {
-            syntax: true,
-            toolbar: '#toolbar-container',
-        },
-        placeholder: 'Compose an epic...',
-        theme: 'snow',
-    });
-</script>
+@include('plugins.packages_initializations')
 </body>
 </html>

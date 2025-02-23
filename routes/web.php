@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DictionaryPageController;
 use App\Http\Controllers\GalleryPageController;
@@ -16,6 +15,9 @@ Route::get('/translates', [TranslatesPageController::class, 'index'])->name('tra
 Route::get('/grammar', [GrammarPageController::class, 'index'])->name('grammar');
 
 Route::get('/dictionary', [DictionaryPageController::class, 'index'])->name('dictionary');
+Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
+Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->name('dictionary.update');
+Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
 
