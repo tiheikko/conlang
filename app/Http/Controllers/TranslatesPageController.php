@@ -10,7 +10,8 @@ class TranslatesPageController extends Controller
     public function index() {
         $articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Перевод');
-        })->get();
+        })->orderBy('created_at', 'desc')->paginate(12);
+
         return view('translates.index', compact('articles'));
     }
 }

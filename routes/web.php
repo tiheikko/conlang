@@ -22,7 +22,11 @@ Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy']
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
 
 Route::get('/create_article', [ArticleController::class, 'create'])->name('article.create');
+Route::post('/create_article', [ArticleController::class, 'store'])->name('article.store');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
+Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('article.update');
+Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -10,7 +10,8 @@ class GrammarPageController extends Controller
     public function index() {
         $articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Грамматика');
-        })->get();
+        })->orderBy('created_at')->get();
+
         return view('grammar.index', compact('articles'));
     }
 }

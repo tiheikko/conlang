@@ -26,14 +26,6 @@
                                 {{ $article->title }}
                             </a>
                         @endforeach
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            The current link item
-                        </a>
-
-                        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                        <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                        <a href="#" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">A
-                            disabled link item</a>
                     </div>
                 </div>
             </div>
