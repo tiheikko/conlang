@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DictionaryWordRequest;
+use App\Http\Requests\Dictionary\DictionaryWordRequest;
 use App\Models\DictionaryWord;
-use Illuminate\Http\Request;
 
 class DictionaryPageController extends Controller
 {

@@ -11,11 +11,31 @@
 
             @auth
                 <div class="mt-3 mb-3">
-                    <button type="button" class="btn btn-primary" id="create_new_word_btn" data-bs-toggle="modal"
-                            data-bs-target="#dictionary_modal">
-                        Создать новое слово
-                    </button>
+                    <div class="mb-3">
+                        <form action="{{ route('dictionary.excel') }}" enctype="multipart/form-data" method="post">
+                            @csrf
+                            <h3>Загрузка из Excel</h3>
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="excel_file" name="excel_file">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary w-100">Загрузить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
+                    <div class="mb-3">
+                        <h3>Создание нового слова</h3>
+
+                        <button type="button" class="btn btn-primary mt-3" id="create_new_word_btn" data-bs-toggle="modal"
+                                data-bs-target="#dictionary_modal">
+                            Создать новое слово
+                        </button>
+                    </div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="dictionary_modal" tabindex="-1"
