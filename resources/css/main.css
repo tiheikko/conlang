@@ -35,4 +35,9 @@ textarea {
     display: block;
 }
 
-
+.auth_form {
+    min-height: 100vh; /* 100% высоты viewport */
+    background-size: cover;
+    background-position: center; /* Центрируем изображение */
+    background-repeat: no-repeat; /* Запрещаем повторение */
+}

@@ -11,11 +11,13 @@
                         little world.</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="btn btn-primary btn-lg" href="{{ route('article.create') }}">Создать статью</a>
+            @auth
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="btn btn-primary btn-lg" href="{{ route('article.create') }}">Создать статью</a>
+                    </div>
                 </div>
-            </div>
+            @endauth
         </div>
     </div>
     <div class="py-2">

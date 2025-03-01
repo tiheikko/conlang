@@ -11,46 +11,51 @@
                         little world.</p>
                 </div>
             </div>
-            <div class="">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Загрузить изображение
-                </button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Загрузка картинки</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <form action="{{ route('gallery.store') }}" enctype="multipart/form-data" method="post">
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Изображение</label>
-                                        <input type="file" class="form-control" name="file">
+            @auth
+                <div class="">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Загрузить изображение
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Загрузка картинки</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('gallery.store') }}" enctype="multipart/form-data" method="post">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Изображение</label>
+                                            <input type="file" class="form-control" name="file">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">Загрузить</button>
-                                </div>
-                            </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Загрузить</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endauth
 
             <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer" }'>
                 <div class="grid-sizer"></div>
                 @foreach($images as $image)
                     <div class="grid-item">
                         <div class="card text-center text-decoration-none">
-                            <img class="card-img-top" src="{{ asset($image->image_path) }}" alt="Card image cap" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal('{{ asset($image->image_path) }}', '{{ $image->id }}')">
+                            <img class="card-img-top" src="{{ asset($image->image_path) }}" alt="Card image cap"
+                                 data-bs-toggle="modal" data-bs-target="#imageModal"
+                                 onclick="openModal('{{ asset($image->image_path) }}', '{{ $image->id }}')">
                         </div>
                     </div>
                 @endforeach
@@ -69,7 +74,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-danger" id="deleteImageButton">Удалить</button>
+                            @auth
+                                <button type="button" class="btn btn-danger" id="deleteImageButton">Удалить</button>
+                            @endauth
                         </div>
                     </div>
                 </div>
