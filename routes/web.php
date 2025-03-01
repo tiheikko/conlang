@@ -20,6 +20,8 @@ Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->
 Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
+Route::post('/gallery', [GalleryPageController::class, 'store'])->name('gallery.store');
+Route::delete('/gallery/{image}', [GalleryPageController::class, 'destroy'])->name('gallery.destroy');
 
 Route::get('/create_article', [ArticleController::class, 'create'])->name('article.create');
 Route::post('/create_article', [ArticleController::class, 'store'])->name('article.store');
