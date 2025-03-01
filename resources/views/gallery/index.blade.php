@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="text-center mx-auto col-md-8">
-                    <h1 class="mb-3">I enjoy with my whole heart</h1>
+                    <h1 class="mb-3">Галерея</h1>
                     <p class="lead">I throw myself down among the tall grass by the trickling stream; and, as I lie
                         close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the
                         little world.</p>
@@ -22,56 +22,61 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Загрузка картинки</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Заголовок</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    </div>
+                            <form action="{{ route('gallery.store') }}" enctype="multipart/form-data" method="post">
+                                @csrf
+                                <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Изображение</label>
-                                        <input type="file" class="form-control" id="exampleInputPassword1">
+                                        <input type="file" class="form-control" name="file">
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Загрузить</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-1.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-2.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-3.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-4.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-3.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-4.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-1.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-2.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-2.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-1.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-4.svg"></div>
-                <div class="col-lg-3 col-md-6 p-3"><img class="img-fluid d-block"
-                                                        src="https://static.pingendo.com/img-placeholder-3.svg"></div>
+
+            <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer" }'>
+                <div class="grid-sizer"></div>
+                @foreach($images as $image)
+                    <div class="grid-item">
+                        <div class="card text-center text-decoration-none">
+                            <img class="card-img-top" src="{{ asset($image->image_path) }}" alt="Card image cap" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal('{{ asset($image->image_path) }}', '{{ $image->id }}')">
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
+            <!-- Модальное окно -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalLabel">Просмотр изображения</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img id="modalImage" src="" alt="Modal Image" class="img-fluid">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-danger" id="deleteImageButton">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ $images->links('pagination::bootstrap-5') }}
         </div>
     </div>
+    @include('plugins.gallery_plugin')
 @endsection
