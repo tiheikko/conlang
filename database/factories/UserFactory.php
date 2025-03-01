@@ -24,7 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'admin',
+            'login' => 'admin',
             'password' => Hash::make(env('ADMIN_PASSWORD')),
             'remember_token' => Str::random(10),
         ];

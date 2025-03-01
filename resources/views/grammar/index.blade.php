@@ -12,11 +12,13 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-12">
-                    <a class="btn btn-primary btn-lg" href="{{ route('article.create') }}">Создать статью</a>
+            @auth
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <a class="btn btn-primary btn-lg" href="{{ route('article.create') }}">Создать статью</a>
+                    </div>
                 </div>
-            </div>
+            @endauth
 
             <div class="row mb-3">
                 <div class="col-md-12">
