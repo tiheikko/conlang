@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DictionaryPageController;
+use App\Http\Controllers\ExcelDictionaryController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\GrammarPageController;
 use App\Http\Controllers\MainPageController;
@@ -17,6 +18,7 @@ Route::get('/grammar', [GrammarPageController::class, 'index'])->name('grammar')
 
 Route::get('/dictionary', [DictionaryPageController::class, 'index'])->name('dictionary');
 Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
+Route::post('/dictionary/excel', [ExcelDictionaryController::class, 'store'])->name('dictionary.excel');
 Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->name('dictionary.update');
 Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 
