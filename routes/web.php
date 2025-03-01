@@ -17,30 +17,27 @@ Route::get('/translates', [TranslatesPageController::class, 'index'])->name('tra
 Route::get('/grammar', [GrammarPageController::class, 'index'])->name('grammar');
 
 Route::get('/dictionary', [DictionaryPageController::class, 'index'])->name('dictionary');
-Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
-Route::post('/dictionary/excel', [ExcelDictionaryController::class, 'store'])->name('dictionary.excel');
-Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->name('dictionary.update');
-Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
-Route::post('/gallery', [GalleryPageController::class, 'store'])->name('gallery.store');
-Route::delete('/gallery/{image}', [GalleryPageController::class, 'destroy'])->name('gallery.destroy');
 
-Route::get('/create_article', [ArticleController::class, 'create'])->name('article.create');
-Route::post('/create_article', [ArticleController::class, 'store'])->name('article.store');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('article.show');
-Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
-Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('article.update');
-Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/create_article', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('/create_article', [ArticleController::class, 'store'])->name('article.store');
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('article.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
+    Route::post('/gallery', [GalleryPageController::class, 'store'])->name('gallery.store');
+    Route::delete('/gallery/{image}', [GalleryPageController::class, 'destroy'])->name('gallery.destroy');
+
+    Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
+    Route::post('/dictionary/excel', [ExcelDictionaryController::class, 'store'])->name('dictionary.excel');
+    Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->name('dictionary.update');
+    Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 });
 
 require __DIR__.'/auth.php';
