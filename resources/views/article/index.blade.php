@@ -16,12 +16,39 @@
                     <h1 class="display-4">{{ $article->title }}</h1>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="" class="btn btn-primary">Изменить</a>
-                    <form action="" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">Удалить</button>
-                    </form>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('article.edit', $article->id) }}'">
+                        Изменить
+                    </button>
+
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#delete_article_modal">
+                        Удалить
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete_article_modal" tabindex="-1" aria-labelledby="delete_article_modal_label">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="dictionary_modal_label">Удаление статьи</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Вы уверены, что хотите удалить статью?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <form action="{{ route('article.destroy', $article->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button type="submit" id="add_word_btn" class="btn btn-danger">Удалить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

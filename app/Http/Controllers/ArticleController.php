@@ -2,47 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\Article\ArticleRequest;
+use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
-use Illuminate\Http\Request;
+use App\Services\ArticleService;
 
 class ArticleController extends Controller
 {
+    public function __construct(private readonly ArticleService $service) {}
+
     public function show(Article $article) {
         return view('article.index', compact('article'));
     }
 
     public function create() {
         $categories = ArticleCategory::all();
-        return view('article.article_form', compact('categories'));
+        $is_edit_page = false;
+
+        return view('article.article_form', compact('categories', 'is_edit_page'));
     }
 
     public function store(ArticleRequest $request) {
         $validated = $request->validated();
+
+        $file = null;
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-
-            $folder_path = public_path('images/translates');
-            if (!file_exists($folder_path)) {
-                mkdir($folder_path, 0777, true);
-            }
-
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->move($folder_path, $filename);
-            $validated['cover_path'] = 'images/translates/' . $filename;
         }
 
-        unset($validated['file']);
+        $redirect_href = $this->service->storeNewArticle($validated, $file);
 
-        $new_article = Article::create($validated);
+        return response()->json(['href' => $redirect_href]);
+    }
 
-        if ($new_article->category->name == 'Грамматика') {
-            $href = route('grammar');
-        } else {
-            $href = route('translates');
+    public function edit(Article $article) {
+        $is_edit_page = true;
+
+        return view('article.article_form', compact('article', 'is_edit_page'));
+    }
+
+    public function update(ArticleUpdateRequest $request, Article $article) {
+        $validated = $request->validated();
+
+        $file = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
         }
 
-        return response()->json(['href' => $href]);
+        $this->service->updateArticle($article, $validated, $file);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function destroy(Article $article) {
+        $redirect_href = $this->service->deleteArticle($article);
+
+        return redirect()->route($redirect_href);
     }
 }

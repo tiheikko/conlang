@@ -5,7 +5,13 @@
         <div class="container">
             <div class="row">
                 <div class="text-center mx-auto col-md-8">
-                    <h1 class="mb-3">Создание статьи</h1>
+                    <h1 class="mb-3">
+                        @if($is_edit_page)
+                            Редактирование статьи
+                        @else
+                            Создание статьи
+                        @endif
+                    </h1>
                     <p class="lead">I throw myself down among the tall grass by the trickling stream; and, as I lie
                         close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the
                         little world.</p>
@@ -15,26 +21,34 @@
                 <div class="col-md-12">
                     <form id="article_form" enctype="multipart/form-data">
                         <div class="form-group mb-3">
-                            <label>Категория</label>
-                            <select class="form-select" name="article_category_id" id="category_select" aria-label="Default select example">
-                                <option selected>Выбрать категорию</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @if($is_edit_page)
+                                <p><b>Категория:</b> {{ $article->category->name }}</p>
+                            @else
+                                <label>Категория</label>
+                                <select class="form-select" name="article_category_id" id="category_select" aria-label="Default select example">
+                                    <option selected>Выбрать категорию</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Заголовок</label>
-                            <input type="text" class="form-control" name="title" placeholder="Заголовок">
+                            <input type="text" class="form-control" name="title"
+                                   placeholder="Заголовок" @if($is_edit_page) value="{{ $article->title }}" @endif>
                         </div>
 
-                        <div class="form-group mb-3" id="cover_form" style="display: none">
-                            <label>Обложка</label>
-                            <input type="file" name="file" class="form-control">
-                        </div>
+                        @if(!$is_edit_page || ($is_edit_page && $article->category->name == 'Перевод'))
+                            <div class="form-group mb-3" id="cover_form"
+                                 @if(!$is_edit_page) @endifstyle="display: none" @endif>
+                                <label>Обложка</label>
+                                <input type="file" name="file" class="form-control">
+                            </div>
+                        @endif
 
                         <div class="form-group mb-3">
                             <label>Контент<br></label>
@@ -83,59 +97,25 @@
                                     <button class="ql-clean"></button>
                                 </span>
                             </div>
-                            <div id="text_editor"></div>
+                            <div id="text_editor">
+                                @if($is_edit_page)
+                                    {!! $article->content !!}
+                                @endif
+                            </div>
                         </div>
 
-                        <button type="button" id="create_article_btn" class="btn btn-primary mb-3">Создать</button>
+                        <button type="button" id="article_btn" class="btn btn-primary mb-3"
+                        data-what-to-do="{{ $is_edit_page ? 'edit' : 'create' }}">
+                            @if($is_edit_page)
+                                Сохранить
+                            @else
+                                Создать
+                            @endif
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        let category_select = document.getElementById('category_select');
-        let cover_form = document.getElementById('cover_form');
-
-        let create_article_btn = document.getElementById('create_article_btn');
-
-        const quill = new Quill('#text_editor', {
-            modules: {
-                syntax: true,
-                toolbar: '#toolbar-container',
-            },
-            placeholder: 'Что-нибудь...',
-            theme: 'snow',
-        });
-
-        category_select.addEventListener('change', function(event) {
-            let text = event.target.options[event.target.selectedIndex].textContent.trim();
-            if (text == 'Перевод') {
-                cover_form.style.display = 'block';
-            } else {
-                cover_form.style.display = 'none';
-            }
-        });
-
-        create_article_btn.addEventListener('click', () => {
-            let form_data = new FormData(document.getElementById('article_form'));
-            let content = quill.root.innerHTML;
-            form_data.append('content', content);
-
-            let url = window.location.href;
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: form_data
-            }).then(response => {
-                return response.json();
-            }).then(data => {
-                window.location.href = data.href;
-            }).catch(err => {
-
-            });
-        });
-    </script>
+    @include('plugins.article_plugin')
 @endsection

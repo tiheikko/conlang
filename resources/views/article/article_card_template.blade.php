@@ -1,4 +1,4 @@
-<div class="col-md-4 mb-3">
+<div class="grid-item">
     <a class="card text-center text-decoration-none" href="{{ route('article.show', $article->id) }}">
         <img class="card-img-top" src="{{ asset($article->cover_path) }}" alt="Card image cap">
         <div class="card-body">
