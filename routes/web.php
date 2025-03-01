@@ -5,6 +5,7 @@ use App\Http\Controllers\DictionaryPageController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\GrammarPageController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TranslatesPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,8 @@ Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('art
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
 Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('article.update');
 Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
