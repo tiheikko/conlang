@@ -12,9 +12,6 @@
                             Создание статьи
                         @endif
                     </h1>
-                    <p class="lead">I throw myself down among the tall grass by the trickling stream; and, as I lie
-                        close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the
-                        little world.</p>
                 </div>
             </div>
             <div class="row">
@@ -44,7 +41,7 @@
 
                         @if(!$is_edit_page || ($is_edit_page && $article->category->name == 'Перевод'))
                             <div class="form-group mb-3" id="cover_form"
-                                 @if(!$is_edit_page) @endifstyle="display: none" @endif>
+                                 @if(!$is_edit_page) style="display: none" @endif>
                                 <label>Обложка</label>
                                 <input type="file" name="file" class="form-control">
                             </div>
@@ -54,7 +51,6 @@
                             <label>Контент<br></label>
                             <div id="toolbar-container">
                                 <span class="ql-formats">
-                                    <select class="ql-font"></select>
                                     <select class="ql-size"></select>
                                 </span>
                                 <span class="ql-formats">
@@ -75,7 +71,6 @@
                                     <button class="ql-header" value="1"></button>
                                     <button class="ql-header" value="2"></button>
                                     <button class="ql-blockquote"></button>
-                                    <button class="ql-code-block"></button>
                                 </span>
                                 <span class="ql-formats">
                                     <button class="ql-list" value="ordered"></button>
@@ -90,11 +85,7 @@
                                 <span class="ql-formats">
                                     <button class="ql-link"></button>
                                     <button class="ql-image"></button>
-                                    <button class="ql-video"></button>
                                     <button class="ql-formula"></button>
-                                </span>
-                                <span class="ql-formats">
-                                    <button class="ql-clean"></button>
                                 </span>
                             </div>
                             <div id="text_editor">

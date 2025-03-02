@@ -6,9 +6,6 @@
             <div class="row">
                 <div class="text-center mx-auto col-md-8">
                     <h1 class="mb-3">Переводы</h1>
-                    <p class="lead">I throw myself down among the tall grass by the trickling stream; and, as I lie
-                        close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the
-                        little world.</p>
                 </div>
             </div>
             @auth
