@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
 
+/**
+ * Класс для отображения главной страницы.
+*/
 class MainPageController extends Controller
 {
+    /**
+     * Отображение главной страницы со статьями по грамматике и с последними переводными статьями.
+    */
     public function index() {
         $grammar_articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Грамматика');
         })->get();
+
         $translate_articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Перевод');
-        })->limit(6)->get();
+        })->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
 
         return view('main_page.index', compact('grammar_articles', 'translate_articles'));
     }
