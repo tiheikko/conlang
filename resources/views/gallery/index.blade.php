@@ -31,6 +31,8 @@
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">Изображение</label>
                                             <input type="file" class="form-control" name="file">
+                                            <label for="translationInput" class="form-label">Перевод</label>
+                                            <input type="text" name="translation" id="translationInput" class="form-control">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -52,7 +54,7 @@
                         <div class="card text-center text-decoration-none">
                             <img class="card-img-top" src="{{ asset($image->image_path) }}" alt="Card image cap"
                                  data-bs-toggle="modal" data-bs-target="#imageModal"
-                                 onclick="openModal('{{ asset($image->image_path) }}', '{{ $image->id }}')">
+                                 onclick="openModal('{{ asset($image->image_path) }}', '{{ $image->id }}', '{{ $image->translation }}', '{{ $image->created_at->format('d.m.Y') }}')">
                         </div>
                     </div>
                 @endforeach
@@ -66,8 +68,13 @@
                             <h5 class="modal-title" id="imageModalLabel">Просмотр изображения</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body text-center">
+                        <div class="modal-body">
                             <img id="modalImage" src="" alt="Modal Image" class="img-fluid">
+                            <div class="text-left mt-2">
+                                <p><b>Перевод: </b></p>
+                                <p id="modalTranslation"></p>
+                                <small class="text-muted" id="modalCreatedAt"></small>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>

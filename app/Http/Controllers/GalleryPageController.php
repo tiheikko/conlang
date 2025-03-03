@@ -46,6 +46,7 @@ class GalleryPageController extends Controller
 
         GalleryImage::create([
             'image_path' => $image_path,
+            'translation' => $request->translation
         ]);
 
         return redirect()->route('gallery');

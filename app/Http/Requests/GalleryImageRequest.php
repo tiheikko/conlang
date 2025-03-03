@@ -14,6 +14,7 @@ class GalleryImageRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'translation' => 'required|string',
             'file' => 'required|file|image|mimes:jpeg,png,jpg,gif',
         ];
     }

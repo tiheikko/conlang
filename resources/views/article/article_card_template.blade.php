@@ -5,6 +5,9 @@
             <p class="card-text">
                 {{ $article->title }}
             </p>
+            <small class="text-muted">
+                {{ $article->created_at->format('d.m.Y') }}
+            </small>
         </div>
     </a>
 </div>
