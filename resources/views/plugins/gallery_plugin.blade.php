@@ -1,7 +1,9 @@
 <script>
-    function openModal(imageSrc, imageId) {
+    function openModal(imageSrc, imageId, translation, createdAt) {
         // Устанавливаем источник изображения в модальном окне
         document.getElementById('modalImage').src = imageSrc;
+        document.getElementById('modalTranslation').innerText = translation;
+        document.getElementById('modalCreatedAt').innerText = createdAt;
 
         // Устанавливаем обработчик для кнопки удаления
         document.getElementById('deleteImageButton').onclick = function() {
