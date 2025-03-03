@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Gallery;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GalleryImageRequest extends FormRequest
+class GalleryImageUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,7 +15,6 @@ class GalleryImageRequest extends FormRequest
     {
         return [
             'translation' => 'required|string',
-            'file' => 'required|file|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }

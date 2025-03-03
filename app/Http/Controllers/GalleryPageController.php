@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GalleryImageRequest;
+use App\Http\Requests\Gallery\GalleryImageRequest;
+use App\Http\Requests\Gallery\GalleryImageUpdateRequest;
 use App\Models\GalleryImage;
 use App\Services\FileService;
 use Illuminate\Http\JsonResponse;
@@ -50,6 +51,19 @@ class GalleryPageController extends Controller
         ]);
 
         return redirect()->route('gallery');
+    }
+
+    /**
+     * Обновление перевода картинки.
+     *
+     * @param GalleryImage $image Картинка, которую нужно обновить.
+     *
+     * @return JsonResponse Ответ об успешном обновлении перевода картинки.
+     */
+    public function updateTranslate(GalleryImage $image, GalleryImageUpdateRequest $request): JsonResponse {
+        $image->update($request->validated());
+
+        return response()->json(['success' => true]);
     }
 
     /**
