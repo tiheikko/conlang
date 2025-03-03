@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
     Route::post('/gallery', [GalleryPageController::class, 'store'])->name('gallery.store');
+    Route::post('/gallery/{image}', [GalleryPageController::class, 'updateTranslate'])->name('gallery.update_translate');
     Route::delete('/gallery/{image}', [GalleryPageController::class, 'destroy'])->name('gallery.destroy');
 
     Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
