@@ -13,6 +13,9 @@
             <!-- Заголовок статьи и кнопки -->
             <div class="row mt-3 align-items-center">
                 <div class="col-md-8">
+                    <small class="text-muted">
+                        {{ $article->created_at->format('d.m.Y') }}
+                    </small>
                     <h1 class="display-4">{{ $article->title }}</h1>
                 </div>
 
