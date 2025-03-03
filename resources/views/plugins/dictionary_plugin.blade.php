@@ -45,25 +45,27 @@
             });
         }
 
-        create_new_word_btn.addEventListener('click', () => {
-            changeLabels('Добавление слова', 'Добавить');
-            add_word_btn.setAttribute('data-edit-id', null);
-            clearInputs();
-        });
+        if (create_new_word_btn && add_word_btn) {
+            create_new_word_btn.addEventListener('click', () => {
+                changeLabels('Добавление слова', 'Добавить');
+                add_word_btn.setAttribute('data-edit-id', null);
+                clearInputs();
+            });
 
-        add_word_btn.addEventListener('click', function () {
-            let form_data = new FormData(document.getElementById('word_definition_form'));
+            add_word_btn.addEventListener('click', function () {
+                let form_data = new FormData(document.getElementById('word_definition_form'));
 
-            let edit_id = this.getAttribute('data-edit-id');
+                let edit_id = this.getAttribute('data-edit-id');
 
-            if (edit_id != 'null') {
-                let url = `${window.location.href}/${edit_id}`;
-                sendAjax(url, form_data, false, edit_id);
-            } else {
-                let url = window.location.href;
-                sendAjax(url, form_data, true);
-            }
-        });
+                if (edit_id != 'null') {
+                    let url = `${window.location.href}/${edit_id}`;
+                    sendAjax(url, form_data, false, edit_id);
+                } else {
+                    let url = window.location.href;
+                    sendAjax(url, form_data, true);
+                }
+            });
+        }
 
         dictionary_body.addEventListener('click', function(event) {
             let edit_btn = event.target.closest('.edit_word_btn');
