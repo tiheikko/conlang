@@ -36,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/gallery/{image}', [GalleryPageController::class, 'destroy'])->name('gallery.destroy');
 
     Route::post('/dictionary', [DictionaryPageController::class, 'store'])->name('dictionary.store');
-    Route::post('/dictionary/excel', [ExcelDictionaryController::class, 'store'])->name('dictionary.excel');
+    Route::post('/dictionary/excel_import', [ExcelDictionaryController::class, 'import'])->name('dictionary.import');
+    Route::post('/dictionary/excel_export', [ExcelDictionaryController::class, 'export'])->name('dictionary.export');
     Route::post('/dictionary/{word}', [DictionaryPageController::class, 'update'])->name('dictionary.update');
     Route::delete('/dictionary/{word}', [DictionaryPageController::class, 'destroy'])->name('dictionary.destroy');
 });
