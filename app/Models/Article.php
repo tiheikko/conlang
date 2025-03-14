@@ -18,4 +18,16 @@ class Article extends Model
     public function category(): BelongsTo {
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
+
+    public function previousArticle() {
+        return $this->where('created_at', '<', $this->created_at)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    }
+
+    public function nextArticle() {
+        return $this->where('created_at', '>', $this->created_at)
+            ->orderBy('created_at', 'asc')
+            ->first();
+    }
 }
