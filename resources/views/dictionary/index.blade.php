@@ -12,7 +12,21 @@
             @auth
                 <div class="mt-3 mb-3">
                     <div class="mb-3">
-                        <form action="{{ route('dictionary.excel') }}" enctype="multipart/form-data" method="post">
+                        <form action="{{ route('dictionary.export') }}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Скачать словарь</h3>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary w-100">Скачать</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="mb-3">
+                        <form action="{{ route('dictionary.import') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <h3>Загрузка из Excel</h3>
                             <div class="row align-items-center">
@@ -31,7 +45,8 @@
                     <div class="mb-3">
                         <h3>Создание нового слова</h3>
 
-                        <button type="button" class="btn btn-primary mt-3" id="create_new_word_btn" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary mt-3" id="create_new_word_btn"
+                                data-bs-toggle="modal"
                                 data-bs-target="#dictionary_modal">
                             Создать новое слово
                         </button>
