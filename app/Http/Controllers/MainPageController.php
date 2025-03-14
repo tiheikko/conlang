@@ -15,11 +15,14 @@ class MainPageController extends Controller
     public function index() {
         $grammar_articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Грамматика');
-        })->get();
+        })
+            ->orderBy('created_at')
+            ->get();
 
         $translate_articles = Article::whereHas('category', function($query) {
             $query->where('name', 'Перевод');
-        })->orderBy('created_at', 'desc')
+        })
+            ->orderBy('created_at', 'desc')
             ->limit(6)
             ->get();
 
