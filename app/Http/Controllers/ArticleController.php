@@ -33,7 +33,9 @@ class ArticleController extends Controller
      * @return View Представление с информацией о статье.
     */
     public function show(Article $article): View {
-        return view('article.index', compact('article'));
+        $previous = $article->previousArticle();
+        $next = $article->nextArticle();
+        return view('article.index', compact('article', 'previous', 'next'));
     }
 
     /**

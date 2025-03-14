@@ -6,7 +6,17 @@
             <!-- Категория статьи -->
             <div class="row">
                 <div class="col-md-12">
-                    <span class="badge bg-primary">{{ $article->category->name }}</span>
+                    <span class="badge bg-primary">
+                        <a href="
+                        @if($article->category->name == 'Грамматика')
+                            {{ route('grammar') }}
+                        @else
+                            {{ route('translates') }}
+                        @endif
+                        " class="text-white underline text-decoration-none">
+                            {{ $article->category->name }}
+                        </a>
+                    </span>
                 </div>
             </div>
 
@@ -69,8 +79,48 @@
 
             <!-- Контент статьи -->
             <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-md-12 ql-editor">
                     {!! $article->content !!}
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between">
+                    @if($previous)
+                        <a href="{{ route('article.show', $previous->id) }}" class="btn btn-light">
+                            <!-- SVG иконка для стрелки влево -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg>
+                            <span class="d-none d-md-inline">Предыдущая статья:</span> {{ $previous->title }}
+                        </a>
+                    @else
+                        <span class="btn btn-secondary disabled">
+                <!-- SVG иконка для стрелки влево -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+                Предыдущая статья
+            </span>
+                    @endif
+
+                    @if($next)
+                        <a href="{{ route('article.show', $next->id) }}" class="btn btn-light">
+                            <span class="d-none d-md-inline">Следующая статья:</span> {{ $next->title }}
+                            <!-- SVG иконка для стрелки вправо -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg>
+                        </a>
+                    @else
+                        <span class="btn btn-secondary disabled">
+                Следующая статья
+                            <!-- SVG иконка для стрелки вправо -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </span>
+                    @endif
                 </div>
             </div>
         </div>
