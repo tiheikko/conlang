@@ -41,3 +41,9 @@ textarea {
     background-position: center; /* Центрируем изображение */
     background-repeat: no-repeat; /* Запрещаем повторение */
 }
+
+@media (max-width: 576px) { /* Для экранов меньше 576px (мобильные устройства) */
+    .toast {
+        width: 100%;
+    }
+}
